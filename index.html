@@ -1,0 +1,1596 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blades in the Dark — Kompendium</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+/* ── RESET & BASE ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+/* ── SHARED VARS ── */
+:root {
+  --parchment: #f0e8d8;
+  --parchment-dark: #d8c8b0;
+  --gold: #c8a84b;
+  --gold-dim: #8a6e2a;
+  --blood: #c0392b;
+  --blood-bright: #c0392b;
+  --smoke: #9a9088;
+  --ash-light: #5a5248;
+  --green: #7ec898;
+  --blue: #6ab0d8;
+  --ink: #0e0b08;
+  --ash: #3a3530;
+}
+
+body {
+  background: #0d0b08;
+  background-image:
+    radial-gradient(ellipse at 15% 10%, rgba(50,35,10,0.5) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 85%, rgba(70,15,15,0.35) 0%, transparent 55%);
+  font-family: 'Crimson Pro', Georgia, serif;
+  color: var(--parchment);
+  min-height: 100vh;
+}
+
+/* ── TOP NAV ── */
+.top-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(10,8,5,0.97);
+  border-bottom: 1px solid rgba(200,168,75,0.2);
+  display: flex;
+  align-items: center;
+  padding: 0 2rem;
+  gap: 0;
+  backdrop-filter: blur(8px);
+}
+
+.top-nav-title {
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  color: var(--gold-dim);
+  text-transform: uppercase;
+  margin-right: 2rem;
+  white-space: nowrap;
+  padding: 1rem 0;
+  border-right: 1px solid rgba(200,168,75,0.15);
+  padding-right: 2rem;
+}
+
+.tab-btn {
+  font-family: 'Cinzel', serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--smoke);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 1.1rem 1.4rem;
+  position: relative;
+  transition: color 0.2s;
+  white-space: nowrap;
+}
+
+.tab-btn::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--gold);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.tab-btn:hover { color: var(--parchment-dark); }
+.tab-btn.active { color: var(--gold); }
+.tab-btn.active::after { opacity: 1; }
+
+.tab-btn .tab-icon { margin-right: 0.4rem; font-size: 0.8rem; }
+
+/* ── TAB PANELS ── */
+.tab-panel { display: none; padding: 2rem 1rem 5rem; }
+.tab-panel.active { display: block; }
+
+/* ── SHARED INNER STYLES (used by both panels) ── */
+.page { max-width: 1120px; margin: 0 auto; }
+
+/* cheatsheet page is wider */
+.page-wide { max-width: 1120px; margin: 0 auto; }
+.page-narrow { max-width: 1000px; margin: 0 auto; }
+
+/* ── CHEAT SHEET STYLES ── */
+:root {
+  --ink: #0e0b08;
+  --parchment: #f0e8d8;
+  --parchment-dark: #d8c8b0;
+  --gold: #c8a84b;
+  --gold-dim: #8a6e2a;
+  --blood: #8b1a1a;
+  --blood-bright: #c0392b;
+  --ash: #3a3530;
+  --ash-light: #5a5248;
+  --smoke: #9a9088;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: #0d0b08;
+  background-image: radial-gradient(ellipse at 15% 10%, rgba(50,35,10,0.5) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 85%, rgba(70,15,15,0.35) 0%, transparent 55%);
+  font-family: 'Crimson Pro', Georgia, serif;
+  color: var(--parchment);
+  padding: 2rem 1rem 4rem;
+}
+.page { max-width: 1120px; margin: 0 auto; }
+
+/* HEADER */
+header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  padding-bottom: 1.2rem;
+}
+header::after {
+  content: '';
+  display: block;
+  width: 55%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  margin: 1rem auto 0;
+}
+.subtitle {
+  font-family: 'Cinzel', serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.32em;
+  color: var(--gold-dim);
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+h1 {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  font-weight: 900;
+  color: var(--parchment);
+  text-shadow: 0 0 50px rgba(200,168,75,0.15);
+}
+h1 span { color: var(--gold); }
+.tagline { font-style: italic; color: var(--smoke); font-size: 1rem; margin-top: 0.35rem; }
+
+/* SECTION DIVIDER */
+.section-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+  text-align: center;
+  margin: 2.2rem 0 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.section-label::before, .section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+}
+.section-label::before { background: linear-gradient(90deg, transparent, rgba(200,168,75,0.35)); }
+.section-label::after { background: linear-gradient(90deg, rgba(200,168,75,0.35), transparent); }
+
+/* GRID */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 1.4rem;
+}
+.grid.cols2 { grid-template-columns: repeat(2, 1fr); }
+.grid.cols3 { grid-template-columns: repeat(3, 1fr); }
+
+/* CARD */
+.card {
+  background: linear-gradient(155deg, rgba(28,22,16,0.97), rgba(18,13,8,0.99));
+  border: 1px solid rgba(200,168,75,0.18);
+  border-radius: 2px;
+  padding: 1.4rem 1.5rem 1.5rem;
+  position: relative;
+}
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0.55;
+}
+.card.blood::before { background: linear-gradient(90deg, transparent, var(--blood-bright), transparent); }
+.card.wide { grid-column: 1 / -1; }
+
+.card-icon { font-size: 1.2rem; margin-bottom: 0.25rem; opacity: 0.85; }
+.card h2 {
+  font-family: 'Cinzel', serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1rem;
+  padding-bottom: 0.45rem;
+  border-bottom: 1px solid rgba(200,168,75,0.13);
+}
+.card.blood h2 { color: #e07070; border-color: rgba(192,57,43,0.18); }
+
+/* TABLES */
+table { width: 100%; border-collapse: collapse; font-size: 0.86rem; }
+th {
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--smoke);
+  padding: 0.3rem 0.5rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(154,144,136,0.18);
+}
+td {
+  padding: 0.45rem 0.5rem;
+  vertical-align: top;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  line-height: 1.45;
+  color: var(--parchment-dark);
+}
+tr:last-child td { border-bottom: none; }
+td:first-child {
+  font-family: 'Cinzel', serif;
+  font-size: 0.75rem;
+  color: var(--parchment);
+  white-space: nowrap;
+  padding-right: 0.9rem;
+}
+
+/* RESULT COLORS */
+.rc { color: #7ec898; font-weight: 600; }
+.rf { color: var(--gold); font-weight: 600; }
+.rp { color: #e0b060; }
+.rm { color: #e07070; }
+.pc { color: #7ec898; }
+.pr { color: var(--gold); }
+.pd { color: #e07070; }
+
+/* BULLETS */
+.li {
+  display: flex;
+  gap: 0.55rem;
+  margin-bottom: 0.55rem;
+  font-size: 0.87rem;
+  line-height: 1.5;
+  color: var(--parchment-dark);
+}
+.li::before { content: '◆'; color: var(--gold-dim); font-size: 0.48rem; margin-top: 0.46rem; flex-shrink: 0; }
+.li strong { color: var(--parchment); }
+
+/* TAGS */
+.tag {
+  display: inline-block;
+  font-family: 'Cinzel', serif;
+  font-size: 0.58rem;
+  letter-spacing: 0.09em;
+  padding: 0.13rem 0.45rem;
+  border-radius: 1px;
+  margin: 0.15rem 0.2rem 0.15rem 0;
+  text-transform: uppercase;
+}
+.tg { background: rgba(200,168,75,0.1); color: var(--gold); border: 1px solid rgba(200,168,75,0.28); }
+.tb { background: rgba(139,26,26,0.18); color: #e07070; border: 1px solid rgba(139,26,26,0.38); }
+.ts { background: rgba(90,82,72,0.25); color: var(--smoke); border: 1px solid rgba(90,82,72,0.45); }
+.tg2 { background: rgba(40,90,50,0.18); color: #7ec898; border: 1px solid rgba(40,90,50,0.45); }
+
+.note { font-size: 0.77rem; font-style: italic; color: var(--smoke); margin-top: 0.6rem; line-height: 1.5; }
+
+/* STRESS TRACK */
+.stress-track { display: flex; gap: 0.35rem; margin: 0.7rem 0 0.35rem; flex-wrap: wrap; }
+.pip {
+  width: 24px; height: 24px;
+  border: 1px solid rgba(200,168,75,0.35);
+  border-radius: 1px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.6rem; color: var(--gold-dim);
+  font-family: 'Cinzel', serif;
+}
+.pip.on { background: rgba(200,168,75,0.12); color: var(--gold); }
+.pip.trauma { background: rgba(139,26,26,0.28); border-color: rgba(192,57,43,0.45); color: #e07070; }
+
+/* TWO-COL INSIDE */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+.col-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  color: var(--smoke);
+  margin-bottom: 0.4rem;
+  text-transform: uppercase;
+}
+
+/* DOWNTIME */
+.dt-item {
+  background: rgba(255,255,255,0.03);
+  border-left: 2px solid rgba(200,168,75,0.3);
+  padding: 0.5rem 0.7rem;
+  margin-bottom: 0.5rem;
+  border-radius: 0 2px 2px 0;
+}
+.dt-item strong { color: var(--parchment); font-size: 0.87rem; display: block; margin-bottom: 0.15rem; }
+.dt-item span { color: var(--parchment-dark); font-size: 0.82rem; line-height: 1.4; }
+
+footer {
+  text-align: center;
+  margin-top: 3rem;
+  font-size: 0.73rem;
+  color: var(--ash-light);
+  font-style: italic;
+}
+
+@media (max-width: 640px) {
+  .grid.cols2, .grid.cols3 { grid-template-columns: 1fr; }
+  .two-col { grid-template-columns: 1fr; }
+  .card.wide { grid-column: auto; }
+}
+
+/* ── DOSKVOL STYLES (some overlap intentional, same vars) ── */
+:root {
+  --parchment: #f0e8d8;
+  --parchment-dark: #d8c8b0;
+  --gold: #c8a84b;
+  --gold-dim: #8a6e2a;
+  --blood: #c0392b;
+  --smoke: #9a9088;
+  --ash-light: #5a5248;
+  --green: #7ec898;
+  --blue: #6ab0d8;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+.district, .world-card, .section-div {
+  scroll-margin-top: 1.5rem;
+}
+body {
+  background: #0d0b08;
+  background-image:
+    radial-gradient(ellipse at 15% 10%, rgba(50,35,10,0.5) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 85%, rgba(70,15,15,0.35) 0%, transparent 55%);
+  font-family: 'Crimson Pro', Georgia, serif;
+  color: var(--parchment);
+  padding: 2rem 1rem 5rem;
+}
+.page { max-width: 1000px; margin: 0 auto; }
+
+/* HEADER */
+header { text-align: center; margin-bottom: 2.5rem; }
+header::after {
+  content: '';
+  display: block;
+  width: 55%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  margin: 1rem auto 0;
+}
+.subtitle {
+  font-family: 'Cinzel', serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.32em;
+  color: var(--gold-dim);
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+h1 {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 900;
+  color: var(--parchment);
+  text-shadow: 0 0 50px rgba(200,168,75,0.15);
+}
+h1 span { color: var(--gold); }
+.tagline { font-style: italic; color: var(--smoke); font-size: 1rem; margin-top: 0.4rem; }
+
+/* CANON NOTE */
+.canon-note {
+  background: rgba(200,168,75,0.07);
+  border: 1px solid rgba(200,168,75,0.2);
+  border-radius: 2px;
+  padding: 0.8rem 1.2rem;
+  margin-bottom: 2rem;
+  font-size: 0.83rem;
+  color: var(--parchment-dark);
+  line-height: 1.6;
+}
+.canon-note strong { color: var(--gold); }
+.badge {
+  display: inline-block;
+  font-family: 'Cinzel', serif;
+  font-size: 0.55rem;
+  letter-spacing: 0.1em;
+  padding: 0.1rem 0.4rem;
+  border-radius: 1px;
+  text-transform: uppercase;
+  vertical-align: middle;
+  margin-left: 0.3rem;
+}
+.b-canon { background: rgba(126,200,152,0.12); color: var(--green); border: 1px solid rgba(126,200,152,0.3); }
+.b-gm { background: rgba(200,168,75,0.1); color: var(--gold); border: 1px solid rgba(200,168,75,0.25); }
+
+/* NAV */
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 2.5rem;
+  justify-content: center;
+}
+.nav a {
+  font-family: 'Cinzel', serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--smoke);
+  text-decoration: none;
+  padding: 0.3rem 0.7rem;
+  border: 1px solid rgba(154,144,136,0.2);
+  border-radius: 1px;
+  transition: color 0.2s, border-color 0.2s;
+}
+.nav a:hover { color: var(--gold); border-color: rgba(200,168,75,0.4); }
+
+/* SECTION DIVIDER */
+.section-div {
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+  text-align: center;
+  margin: 3rem 0 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.section-div::before, .section-div::after { content: ''; flex: 1; height: 1px; }
+.section-div::before { background: linear-gradient(90deg, transparent, rgba(200,168,75,0.3)); }
+.section-div::after { background: linear-gradient(90deg, rgba(200,168,75,0.3), transparent); }
+
+/* DISTRICT CARD */
+.district {
+  background: linear-gradient(155deg, rgba(28,22,16,0.97), rgba(18,13,8,0.99));
+  border: 1px solid rgba(200,168,75,0.15);
+  border-radius: 2px;
+  margin-bottom: 2rem;
+  overflow: hidden;
+}
+.district-header {
+  padding: 1.2rem 1.6rem 1rem;
+  border-bottom: 1px solid rgba(200,168,75,0.1);
+  position: relative;
+}
+.district-header::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0.5;
+}
+.district-name {
+  font-family: 'Cinzel', serif;
+  font-size: 1.3rem;
+  font-weight: 900;
+  color: var(--parchment);
+  margin-bottom: 0.15rem;
+}
+.district-tagline {
+  font-style: italic;
+  color: var(--smoke);
+  font-size: 0.9rem;
+}
+.district-meta {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.6rem;
+  flex-wrap: wrap;
+}
+.meta-tag {
+  font-family: 'Cinzel', serif;
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.15rem 0.5rem;
+  border-radius: 1px;
+}
+.wealth-high { background: rgba(200,168,75,0.12); color: var(--gold); border: 1px solid rgba(200,168,75,0.3); }
+.wealth-med { background: rgba(106,176,216,0.1); color: var(--blue); border: 1px solid rgba(106,176,216,0.25); }
+.wealth-low { background: rgba(90,82,72,0.25); color: var(--smoke); border: 1px solid rgba(90,82,72,0.4); }
+.wealth-squalid { background: rgba(139,26,26,0.15); color: #e07070; border: 1px solid rgba(139,26,26,0.3); }
+
+.district-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+.district-col {
+  padding: 1.2rem 1.6rem;
+  border-right: 1px solid rgba(200,168,75,0.08);
+}
+.district-col:last-child { border-right: none; }
+.district-col.full { grid-column: 1 / -1; border-right: none; border-top: 1px solid rgba(200,168,75,0.08); }
+
+.col-title {
+  font-family: 'Cinzel', serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+  margin-bottom: 0.7rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid rgba(200,168,75,0.1);
+}
+
+/* PROSE */
+.prose { font-size: 0.9rem; line-height: 1.7; color: var(--parchment-dark); }
+.prose strong { color: var(--parchment); }
+
+/* BULLET LIST */
+.blist { list-style: none; }
+.blist li {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.87rem;
+  line-height: 1.5;
+  color: var(--parchment-dark);
+}
+.blist li::before { content: '◆'; color: var(--gold-dim); font-size: 0.45rem; margin-top: 0.5rem; flex-shrink: 0; }
+.blist li strong { color: var(--parchment); }
+
+/* FACTION ROW */
+.faction {
+  margin-bottom: 0.7rem;
+  padding-bottom: 0.7rem;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.faction:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.faction-name {
+  font-family: 'Cinzel', serif;
+  font-size: 0.75rem;
+  color: var(--parchment);
+  margin-bottom: 0.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+.tier {
+  font-size: 0.55rem;
+  letter-spacing: 0.08em;
+  padding: 0.1rem 0.35rem;
+  border-radius: 1px;
+  font-family: 'Cinzel', serif;
+  text-transform: uppercase;
+  border: 1px solid rgba(200,168,75,0.25);
+  color: var(--gold-dim);
+}
+.faction-desc { font-size: 0.83rem; color: var(--parchment-dark); line-height: 1.5; }
+.faction-npc { font-size: 0.8rem; color: var(--smoke); font-style: italic; margin-top: 0.15rem; }
+
+/* NPC */
+.npc {
+  margin-bottom: 0.55rem;
+  font-size: 0.86rem;
+  line-height: 1.5;
+  color: var(--parchment-dark);
+}
+.npc strong { color: var(--parchment); font-style: normal; }
+.npc em { color: var(--smoke); font-size: 0.8rem; }
+
+/* HOOK */
+.hook {
+  background: rgba(192,57,43,0.06);
+  border-left: 2px solid rgba(192,57,43,0.4);
+  padding: 0.5rem 0.8rem;
+  margin-bottom: 0.5rem;
+  border-radius: 0 2px 2px 0;
+  font-size: 0.86rem;
+  line-height: 1.5;
+  color: var(--parchment-dark);
+}
+.hook strong { color: var(--parchment); }
+
+/* LOCATION */
+.location {
+  margin-bottom: 0.5rem;
+  font-size: 0.86rem;
+  line-height: 1.5;
+  color: var(--parchment-dark);
+}
+.location strong { color: var(--gold); }
+
+/* WORLD SECTION */
+.world-card {
+  background: linear-gradient(155deg, rgba(28,22,16,0.97), rgba(18,13,8,0.99));
+  border: 1px solid rgba(200,168,75,0.15);
+  border-radius: 2px;
+  padding: 1.4rem 1.6rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+.world-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0.45;
+}
+.world-title {
+  font-family: 'Cinzel', serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.9rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid rgba(200,168,75,0.12);
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  margin-top: 4rem;
+  font-size: 0.72rem;
+  color: var(--ash-light);
+  font-style: italic;
+}
+
+@media (max-width: 640px) {
+  .district-body { grid-template-columns: 1fr; }
+  .district-col { border-right: none; border-bottom: 1px solid rgba(200,168,75,0.08); }
+  .district-col.full { border-top: none; }
+}
+
+/* ── OVERRIDE: scroll margin for anchors ── */
+.district, .world-card, .section-div {
+  scroll-margin-top: 4rem;
+}
+</style>
+</head>
+<body>
+
+<!-- TOP NAVIGATION -->
+<nav class="top-nav">
+  <div class="top-nav-title">⚙ Blades in the Dark</div>
+  <button class="tab-btn active" onclick="switchTab('cheatsheet', this)">
+    <span class="tab-icon">🎲</span> Cheat Sheet
+  </button>
+  <button class="tab-btn" onclick="switchTab('doskvol', this)">
+    <span class="tab-icon">🌆</span> Doskvol
+  </button>
+</nav>
+
+<!-- CHEAT SHEET TAB -->
+<div id="tab-cheatsheet" class="tab-panel active">
+  <div class="page-wide">
+<div class="page">
+
+<header>
+  <div class="subtitle">Black Tides Crew · GM &amp; Spieler Referenz</div>
+  <h1>Blades in the <span>Dark</span></h1>
+  <div class="tagline">Die Regeln der Straße — komprimiert auf das Wesentliche</div>
+</header>
+
+<!-- ══════════ ACTION ROLLS ══════════ -->
+<div class="section-label">Action Rolls &amp; Positionen</div>
+<div class="grid">
+
+  <div class="card">
+    <div class="card-icon">🎲</div>
+    <h2>Der Action Roll</h2>
+    <div class="li"><span><strong>Würfelpool</strong> = Aktionswert (0–4). Bei 0 → 2W6 würfeln, niedrigstes Ergebnis zählt.</span></div>
+    <div class="li"><span>Es zählt immer das <strong>höchste einzelne Ergebnis</strong> aus dem Pool.</span></div>
+    <br>
+    <table>
+      <tr><th>Ergebnis</th><th>Bedeutung</th></tr>
+      <tr><td class="rc">Krit (zwei 6en)</td><td>Vollerfolg + Bonus (mehr Effekt, Vorteil, Extra)</td></tr>
+      <tr><td class="rf">6</td><td>Vollerfolg — Ziel wird erreicht</td></tr>
+      <tr><td class="rp">4–5</td><td>Teilerfolg — Erfolg, aber Konsequenz oder reduzierter Effekt</td></tr>
+      <tr><td class="rm">1–3</td><td>Misserfolg — Ziel wird nicht erreicht, Konsequenz tritt ein</td></tr>
+    </table>
+    <p class="note">Rolls nur würfeln wenn Ergebnis ungewiss ist UND der Einsatz real ist. Wenn Erfolg garantiert → kein Roll.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-icon">⚖️</div>
+    <h2>Position &amp; Effekt</h2>
+    <p class="note" style="margin-bottom:0.8rem">GM setzt Position &amp; Effekt vor dem Roll. Spieler können verhandeln oder tauschen (z.B. besserer Effekt gegen schlechtere Position).</p>
+    <table>
+      <tr><th>Position</th><th>Situation</th><th>Konsequenz bei Misserfolg</th></tr>
+      <tr><td class="pc">Controlled</td><td>Klarer Vorteil, Kontrolle über Lage</td><td>Minimal (kl. Problem, red. Effekt)</td></tr>
+      <tr><td class="pr">Risky</td><td>Standard — Ausgang offen</td><td>Mittel (Schaden, Rückschlag)</td></tr>
+      <tr><td class="pd">Desperate</td><td>Am Limit, hoher Einsatz</td><td>Schwer (ernster Harm, Verhaftung…)</td></tr>
+    </table>
+    <br>
+    <table>
+      <tr><th>Effekt</th><th>Bedeutung</th></tr>
+      <tr><td>Great</td><td>Mehr als erwartet, schnell, gründlich</td></tr>
+      <tr><td>Standard</td><td>Normal — das Ziel wird erreicht</td></tr>
+      <tr><td>Limited</td><td>Nur teilweise, langsam, oberflächlich</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-icon">🤝</div>
+    <h2>Teamwork-Methoden</h2>
+    <table>
+      <tr><th>Methode</th><th>Wie</th><th>Effekt</th></tr>
+      <tr><td>Assist</td><td>Helfer: 1 Stress zahlen</td><td>Aktiver Spieler: +1d</td></tr>
+      <tr><td>Lead Group</td><td>Leader würfelt allein</td><td>Alle profitieren; bei 1–3 nehmen alle Konsequenz</td></tr>
+      <tr><td>Setup Action</td><td>Erster würfelt zuerst</td><td>Verbessert Position oder Effekt der Folgeaktion</td></tr>
+      <tr><td>Protect</td><td>Freiwillig vortreten</td><td>Nimmt Konsequenz statt eines anderen an</td></tr>
+    </table>
+    <p class="note">Devil's Bargain: GM bietet +1d an — dafür eine narrative Komplikation nach dem Roll (kein Stress).</p>
+  </div>
+
+  <div class="card">
+    <div class="card-icon">🎯</div>
+    <h2>Aktionen (12 Grundaktionen)</h2>
+    <div class="two-col">
+      <div>
+        <div class="col-label">Insight</div>
+        <div class="li"><span><strong>Hunt</strong> — verfolgen, zielen</span></div>
+        <div class="li"><span><strong>Study</strong> — analysieren, recherchieren</span></div>
+        <div class="li"><span><strong>Survey</strong> — beobachten, einschätzen</span></div>
+        <div class="li"><span><strong>Tinker</strong> — bauen, reparieren</span></div>
+        <div class="col-label" style="margin-top:0.8rem">Resolve</div>
+        <div class="li"><span><strong>Attune</strong> — Geister, Okkultes</span></div>
+        <div class="li"><span><strong>Command</strong> — befehlen, einschüchtern</span></div>
+        <div class="li"><span><strong>Consort</strong> — soziale Netzwerke</span></div>
+        <div class="li"><span><strong>Sway</strong> — überzeugen, manipulieren</span></div>
+      </div>
+      <div>
+        <div class="col-label">Prowess</div>
+        <div class="li"><span><strong>Finesse</strong> — Geschick, Präzision</span></div>
+        <div class="li"><span><strong>Prowl</strong> — schleichen, infiltrieren</span></div>
+        <div class="li"><span><strong>Skirmish</strong> — Nahkampf, Ringen</span></div>
+        <div class="li"><span><strong>Wreck</strong> — zerstören, forcieren</span></div>
+        <br>
+        <div class="note">Jede Aktion kann kreativ angewendet werden — der Kontext entscheidet, welche Aktion passt, nicht der Name.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════ STRESS & TRAUMA ══════════ -->
+<div class="section-label">Stress &amp; Trauma</div>
+<div class="grid cols3">
+
+  <div class="card blood">
+    <div class="card-icon">💀</div>
+    <h2>Stress</h2>
+    <div class="li"><span>Jeder Charakter hat <strong>9 Stress-Felder</strong>. Stress spiegelt Anspannung, Erschöpfung und Risiko wider.</span></div>
+    <div class="stress-track">
+      <div class="pip on">1</div><div class="pip on">2</div><div class="pip on">3</div>
+      <div class="pip">4</div><div class="pip">5</div><div class="pip">6</div>
+      <div class="pip">7</div><div class="pip">8</div><div class="pip trauma">⚡</div>
+    </div>
+    <p class="note">Stress abbauen: In der Downtime durch "Indulge Vice" — aber Overindulge möglich (−Xp, Konsequenz).</p>
+    <br>
+    <table>
+      <tr><th>Stress ausgeben für…</th><th>Kosten</th></tr>
+      <tr><td>Push Yourself</td><td>2 Stress → +1d oder besonderer Effekt</td></tr>
+      <tr><td>Assist</td><td>1 Stress → +1d für anderen Spieler</td></tr>
+      <tr><td>Flashback</td><td>0–2 Stress je nach Aufwand</td></tr>
+    </table>
+  </div>
+
+  <div class="card blood">
+    <div class="card-icon">🩸</div>
+    <h2>Harm</h2>
+    <div class="li"><span>Harm entsteht durch Konsequenzen — physisch, mental, sozial.</span></div>
+    <br>
+    <table>
+      <tr><th>Level</th><th>Beispiel</th><th>Auswirkung</th></tr>
+      <tr><td class="rm">3 — Lethal</td><td>Tödliche Wunde</td><td>Außer Gefecht. Gefahr des Todes.</td></tr>
+      <tr><td class="rp">2 — Serious</td><td>Gebroch. Arm</td><td>−1d auf betroffene Aktionen</td></tr>
+      <tr><td style="color:var(--smoke)">1 — Lesser</td><td>Blutende Wunde</td><td>Narrativer Einfluss, kein Malus</td></tr>
+    </table>
+    <br>
+    <div class="li"><span>Harm heilen: In der Downtime (Recover-Aktion), mit Medikus, oder durch Long-Term Clock.</span></div>
+    <p class="note">Harm-Slots: Je Charakter 3 Slots für Level 1, 2 für Level 2, 1 für Level 3.</p>
+  </div>
+
+  <div class="card blood">
+    <div class="card-icon">🛡️</div>
+    <h2>Resistance &amp; Trauma</h2>
+    <div class="li"><span><strong>Resistance Roll:</strong> Nach jeder Konsequenz kann der Spieler widerstehen. Wähle Attribut (Insight / Prowess / Resolve), würfle Anzahl Attributpunkte.</span></div>
+    <br>
+    <table>
+      <tr><th>Ergebnis</th><th>Stress-Kosten</th></tr>
+      <tr><td class="rc">Krit</td><td>0 Stress (Konsequenz komplett negiert)</td></tr>
+      <tr><td class="rf">6</td><td>1 Stress</td></tr>
+      <tr><td class="rp">4–5</td><td>2 Stress</td></tr>
+      <tr><td class="rm">1–3</td><td>3 Stress</td></tr>
+    </table>
+    <br>
+    <div class="li"><span><strong>Trauma:</strong> Bei 9 Stress → Reset auf 0, aber Trauma-Kondition erhalten.</span></div>
+    <div style="margin-top:0.5rem;display:flex;flex-wrap:wrap;gap:0.3rem">
+      <span class="tag tb">Cold</span><span class="tag tb">Haunted</span><span class="tag tb">Obsessed</span>
+      <span class="tag tb">Paranoid</span><span class="tag tb">Reckless</span><span class="tag tb">Soft</span>
+      <span class="tag tb">Unstable</span><span class="tag tb">Vicious</span>
+    </div>
+    <p class="note">4 Traumas → Charakter scheidet aus dem aktiven Spiel aus.</p>
+  </div>
+
+</div>
+
+<!-- ══════════ CLOCKS & CONSEQUENCES ══════════ -->
+<div class="section-label">Clocks &amp; Konsequenzen</div>
+<div class="grid">
+
+  <div class="card">
+    <div class="card-icon">🕐</div>
+    <h2>Progress Clocks</h2>
+    <div class="li"><span>Clocks sind Kreise mit <strong>4, 6, 8 oder 12 Segmenten</strong> — sie repräsentieren Fortschritt oder herannahende Ereignisse.</span></div>
+    <div class="li"><span>Segmente werden durch Erfolge, Effekte oder GM-Entscheidungen gefüllt. <strong>Voll = Ereignis tritt ein.</strong></span></div>
+    <br>
+    <table>
+      <tr><th>Clock-Typ</th><th>Verwendung</th></tr>
+      <tr><td>Mission Clock</td><td>Alarm-Level im Score; Fortschritt des Heists</td></tr>
+      <tr><td>Faction Clock</td><td>Pläne von NPCs und Fraktionen (sichtbar oder verborgen)</td></tr>
+      <tr><td>Danger Clock</td><td>Herannahende Bedrohung (Patrouille, Rivale, Deadline)</td></tr>
+      <tr><td>Long-term</td><td>Projekte, Heilung, Recherche in der Downtime</td></tr>
+      <tr><td>Racing Clocks</td><td>Zwei Clocks gegeneinander — wer füllt zuerst?</td></tr>
+    </table>
+    <p class="note">Clocks sind narratives Werkzeug, kein Mechanismus mit festen Regeln. GM entscheidet, wie viele Segmente pro Erfolg gefüllt werden (meist 1–3).</p>
+  </div>
+
+  <div class="card">
+    <div class="card-icon">⚡</div>
+    <h2>Konsequenzen (GM-Werkzeuge)</h2>
+    <div class="li"><span>Konsequenzen treten bei <strong>4–5 (Teilerfolg)</strong> oder <strong>1–3 (Misserfolg)</strong> ein — passend zur Position.</span></div>
+    <br>
+    <table>
+      <tr><th>Konsequenz-Typ</th><th>Beispiel</th></tr>
+      <tr><td>Harm</td><td>Charakter erleidet Schaden (Level 1–3)</td></tr>
+      <tr><td>Complication</td><td>Neue Bedrohung, Alarm, Clock füllt sich</td></tr>
+      <tr><td>Reduced Effect</td><td>Ziel erreicht, aber weniger als erwartet</td></tr>
+      <tr><td>Lost Opportunity</td><td>Chance vorbei — anderer Ansatz nötig</td></tr>
+      <tr><td>Worse Position</td><td>Nächste Aktion startet in schlechterer Position</td></tr>
+    </table>
+    <p class="note">Konsequenzen sollen dramatisch und interessant sein — kein billiger "du stirbst". Sie schieben die Geschichte voran.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-icon">⚡</div>
+    <h2>Flashbacks &amp; Fortune Rolls</h2>
+    <div class="li"><span><strong>Flashback:</strong> Spieler erklärt, was sein Charakter vorher getan hat. GM bestimmt Plausibilität → 0–2 Stress. Dann Roll wenn nötig.</span></div>
+    <div class="li"><span>Kein Zeitreisen-Cheating — Flashbacks müssen plausibel zur Situation passen.</span></div>
+    <br>
+    <div class="li"><span><strong>Fortune Roll:</strong> GM würfelt für NPCs, Zufall, Off-Screen-Ereignisse. Kein Charakter-Attribut — einfach Würfeln nach Einschätzung.</span></div>
+    <div class="li"><span>Erfolg / Misserfolg wie normal. Kein Stress, kein Widerstand — reiner Zufalls-Mechanismus.</span></div>
+  </div>
+
+</div>
+
+<!-- ══════════ CREW & TURF ══════════ -->
+<div class="section-label">Crew &amp; Turf</div>
+<div class="grid cols2">
+
+  <div class="card">
+    <div class="card-icon">💼</div>
+    <h2>Der Score — Aufbau &amp; Planung</h2>
+    <div class="li"><span><strong>Score</strong> = ein konkreter krimineller Auftrag (Raub, Auftragsmord, Erpressung…).</span></div>
+    <div class="li"><span>Spieler wählen ihren Ansatz: <strong>Overt</strong> (direkt), <strong>Stealth</strong>, <strong>Social</strong>, <strong>Deception</strong> oder Mix.</span></div>
+    <div class="li"><span><strong>Engagement Roll</strong> zu Beginn: bestimmt, wie gut der Einstieg gelingt und in welcher Position der Score startet.</span></div>
+    <br>
+    <table>
+      <tr><th>Engagement-Ergebnis</th><th>Startlage</th></tr>
+      <tr><td class="rf">6</td><td>Controlled — optimaler Start</td></tr>
+      <tr><td class="rp">4–5</td><td>Risky — Standard-Lage mit kleiner Komplikation</td></tr>
+      <tr><td class="rm">1–3</td><td>Desperate — etwas ist schiefgelaufen</td></tr>
+    </table>
+    <p class="note">Der Score-Plan ist absichtlich vage — Details werden im Spiel durch Würfe und Flashbacks gefüllt, nicht vorher ausgearbeitet.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-icon">🏴‍☠️</div>
+    <h2>Crew-Mechaniken</h2>
+    <div class="li"><span><strong>Hold:</strong> Stärke der Crew-Präsenz. <span class="tag tg">Strong</span> oder <span class="tag ts">Weak</span> — beeinflusst Downtime-Aktionen und Fraktionsstatus.</span></div>
+    <div class="li"><span><strong>Rep:</strong> Ruf der Crew. Durch Scores aufgebaut. Schaltet Tier-Aufstieg frei.</span></div>
+    <div class="li"><span><strong>Tier:</strong> Gesamtstärke (0–4). Beeinflusst Waffenzugang, NPC-Reaktionen, Qualität der Ausrüstung.</span></div>
+    <div class="li"><span><strong>Heat:</strong> Aufmerksamkeit der Bluecoats (Polizei). Steigt nach Scores. Zu viel → Entanglement.</span></div>
+    <div class="li"><span><strong>Wanted Level:</strong> Grad der aktiven Verfolgung. Bei Verhaftung → Gefängnisszene.</span></div>
+    <br>
+    <table>
+      <tr><th>Nach jedem Score</th><th>Reihenfolge</th></tr>
+      <tr><td>1. Payoff</td><td>Münzen nach Score-Größe verteilt</td></tr>
+      <tr><td>2. Heat</td><td>Heat entsprechend Lärm/Zeugen erhöhen</td></tr>
+      <tr><td>3. Entanglement</td><td>Würfeln ob Komplikation eintritt</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-icon">🌙</div>
+    <h2>Downtime-Aktionen</h2>
+    <p class="note" style="margin-bottom:0.8rem">Nach jedem Score: 2 Downtime-Aktionen pro Charakter (3 mit starker Position).</p>
+    <div class="dt-item">
+      <strong>Recover</strong>
+      <span>Harm heilen (mit Arzt oder Long-Term Clock). Je Erfolg: 1 Harm-Stufe reduziert oder Clock gefüllt.</span>
+    </div>
+    <div class="dt-item">
+      <strong>Indulge Vice</strong>
+      <span>Stress abbauen. Würfle Attribut der Vice-Kategorie → Stress-Reduktion = Ergebnis. Overindulge bei zu viel: narrativer Preis.</span>
+    </div>
+    <div class="dt-item">
+      <strong>Long-Term Project</strong>
+      <span>Tick a Clock. Für alles Außergewöhnliche: Giftsynthese, Beziehungsaufbau, Erforschung okkulter Artefakte.</span>
+    </div>
+    <div class="dt-item">
+      <strong>Acquire Asset</strong>
+      <span>Beschaffe Ausrüstung, Kontakte, Info. Qualität = Tier + Erfolg (max. Tier + 2).</span>
+    </div>
+    <div class="dt-item">
+      <strong>Train</strong>
+      <span>+1 XP auf ein Attribut oder Aktions-XP (muss zur Tätigkeit passen).</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-icon">🌆</div>
+    <h2>Fraktionen &amp; Turf</h2>
+    <div class="li"><span><strong>Fraktionsstatus</strong> läuft von −3 (offen feindlich) bis +3 (eng verbündet).</span></div>
+    <div class="li"><span>Status verändert sich durch Score-Auswirkungen, Geschenke, Verrat, Gerüchte.</span></div>
+    <div class="li"><span><strong>Turf</strong> = kontrolliertes Territorium. Bringt passives Einkommen und Crew-Vorteile.</span></div>
+    <div class="li"><span>Rivalen können Turf angreifen (Faction Clock), wenn Hold der Crew schwächelt.</span></div>
+    <br>
+    <table>
+      <tr><th>Status</th><th>Bedeutung</th></tr>
+      <tr><td class="rc">+3</td><td>Enger Verbündeter — hilft aktiv</td></tr>
+      <tr><td class="rf">+1 / +2</td><td>Freundlich — kooperiert bei Gelegenheit</td></tr>
+      <tr><td style="color:var(--smoke)">0</td><td>Neutral / unbekannt</td></tr>
+      <tr><td class="rp">−1 / −2</td><td>Feindlich — behindert, sabotiert</td></tr>
+      <tr><td class="rm">−3</td><td>Aktiver Feind — greift an</td></tr>
+    </table>
+    <p class="note">Fraktionen agieren auch ohne Spieler-Input — ihre Clocks laufen weiter. Die Welt bewegt sich.</p>
+  </div>
+
+</div>
+
+<!-- ══════════ GM-CHEATSHEET ══════════ -->
+<div class="section-label">GM-Referenz: Die wichtigsten Prinzipien</div>
+<div class="grid">
+
+  <div class="card wide">
+    <div class="card-icon">🎭</div>
+    <h2>Agendas, Prinzipien &amp; Moves</h2>
+    <div class="two-col">
+      <div>
+        <div class="col-label" style="margin-bottom:0.6rem">GM Agendas (immer im Blick)</div>
+        <div class="li"><span>Die Welt von Doskvol <strong>lebendig und gefährlich</strong> machen</span></div>
+        <div class="li"><span>Die Charaktere <strong>komplex und interessant</strong> spielen</span></div>
+        <div class="li"><span>Den <strong>Spielern ermöglichen</strong>, brillante Schurken zu sein</span></div>
+        <br>
+        <div class="col-label" style="margin-bottom:0.6rem">GM Prinzipien</div>
+        <div class="li"><span>Portray a <strong>world of shadows and opportunity</strong></span></div>
+        <div class="li"><span>Bring the <strong>underworld to life</strong></span></div>
+        <div class="li"><span>Fill the characters' <strong>lives with crime</strong></span></div>
+        <div class="li"><span>Ask <strong>provocative questions</strong> and build on answers</span></div>
+        <div class="li"><span>Follow the <strong>fiction</strong> — never the mechanics</span></div>
+      </div>
+      <div>
+        <div class="col-label" style="margin-bottom:0.6rem">GM Moves (nach 1–3 oder 4–5)</div>
+        <div class="li"><span>Schaden zufügen (Harm, Stress, Ressourcen)</span></div>
+        <div class="li"><span>Eine Clock füllen (Alarm, Bedrohung, Plan eines Feinds)</span></div>
+        <div class="li"><span>Eine Komplikation einführen (neue Figur, Problem, Information)</span></div>
+        <div class="li"><span>Eine Chance wegnehmen (Tür schließt sich, Zeit läuft ab)</span></div>
+        <div class="li"><span>Zwei schlechte Optionen anbieten (Dilemma)</span></div>
+        <div class="li"><span>Den Einsatz erhöhen (nächste Aktion: schlechtere Position)</span></div>
+        <div class="li"><span>Die Konsequenz verzögern ("es passiert — aber wann und wie?")</span></div>
+      </div>
+    </div>
+    <p class="note" style="margin-top:1rem">XP-Trigger am Ende jeder Session: Hat jemand seine Vice gespielt? Kam Trauma zur Geltung? Wurde eine Crew-Agenda vorangetrieben? Hat sich jemand in ein riskantes Abenteuer gestürzt? → Je 1 XP.</p>
+  </div>
+
+</div>
+
+<footer>Blades in the Dark von John Harper · Dieses Cheat Sheet ist für den persönlichen Gebrauch am Tisch · Black Tides Crew Edition</footer>
+
+</div>
+  </div>
+</div>
+
+<!-- DOSKVOL TAB -->
+<div id="tab-doskvol" class="tab-panel">
+  <div class="page-narrow">
+<div class="page">
+
+<header>
+  <div class="subtitle">Black Tides Crew · GM Referenz</div>
+  <h1><span>Doskvol</span> — Stadtführer</h1>
+  <div class="tagline">Die dunklen Viertel von Duskwall, ihre Bewohner und ihre Geheimnisse</div>
+</header>
+
+<div class="canon-note">
+  <strong>Quellen-Transparenz:</strong> Informationen mit <span class="badge b-canon">Kanon</span> stammen direkt aus dem Blades in the Dark Regelwerk (John Harper) oder sind durch verlässliche Community-Quellen bestätigt. Informationen mit <span class="badge b-gm">GM-Erweiterung</span> sind plausible Ergänzungen für Hooks und Atmosphäre — nicht kanonisch, aber regelkonform. Bitte ergänze darunter eure eigenen Anpassungen für die Black Tides Crew.
+</div>
+
+<div class="nav">
+  <a href="#welt">Die Welt</a>
+  <a href="#crowsfoot">Crow's Foot</a>
+  <a href="#silkshore">Silkshore</a>
+  <a href="#charterhall">Charterhall</a>
+  <a href="#brightstone">Brightstone</a>
+  <a href="#docks">The Docks</a>
+  <a href="#nightmarket">Nightmarket</a>
+  <a href="#sixtowers">Six Towers</a>
+  <a href="#charhollow">Charhollow</a>
+  <a href="#coalridge">Coalridge</a>
+  <a href="#barrowcleft">Barrowcleft</a>
+  <a href="#dunslough">Dunslough</a>
+  <a href="#whitecrown">Whitecrown</a>
+  <a href="#ausserhalb">Außerhalb</a>
+</div>
+
+<!-- ══════════ DIE WELT ══════════ -->
+<div class="section-div">Doskvol — Die Stadt</div>
+
+<div id="welt" class="world-card">
+  <div class="world-title">Grundlagen <span class="badge b-canon">Kanon</span></div>
+  <ul class="blist">
+    <li><span>Doskvol (auch <strong>Duskwall</strong>) liegt an der Küste des <strong>Void Sea</strong> — einem schwarzen Ozean voller leviathaner Dämonen. Die Stadt befindet sich im Jahr <strong>847 AC</strong> (After Cataclysm).</span></li>
+    <li><span>Die <strong>Sonne ist erloschen</strong>. Die Welt liegt in ewiger Dunkelheit — beleuchtet nur von elektroplasmatischen Fackeln, Industrie-Feuern und dem fahlen Licht der Blitzsperren.</span></li>
+    <li><span><strong>Blitzsperren (Lightning Barriers)</strong> umgeben die Stadt und halten die Geister und Dämonen der Todeslande draußen. Ohne sie wäre die Stadt sofort verloren.</span></li>
+    <li><span>Die <strong>Geisterwelt (Ghost Field)</strong> überlagert die physische Welt. Geister der Verstorbenen wandern umher — hungrig, gefährlich, zunehmend irre. Das Electroplasma, das die Stadt antreibt, wird aus <strong>Leviathan-Blut</strong> gewonnen.</span></li>
+    <li><span>Doskvol gehört zum <strong>Imperium von Akoros</strong>, regiert von einem unsterblichen <strong>Kaiser</strong> in der fernen Hauptstadt. Der lokale <strong>Lord Governor</strong> regiert die Stadt vom Whitecrown aus.</span></li>
+    <li><span>Die Stadt ist <strong>dicht, mehrschichtig, ständig neblig</strong>. Kanäle durchziehen viele Viertel. Gondolieri transportieren Waren und Personen. Die Bluecoats (Stadtpolizei) sind korrupt, gewaltsam und allgegenwärtig.</span></li>
+  </ul>
+</div>
+
+<div class="world-card">
+  <div class="world-title">Atmosphäre &amp; Ton <span class="badge b-gm">GM-Erweiterung</span></div>
+  <ul class="blist">
+    <li><span><strong>Inspirationen:</strong> Viktorianisches London, Venedig, Peaky Blinders, The Wire, Dishonored — düster, industriell, okkulte Elemente.</span></li>
+    <li><span><strong>Die Luft</strong> riecht nach Kohle, Salzwasser, Aal-Blut und Electroplasma. In manchen Vierteln nach billigem Opium oder Parfüm.</span></li>
+    <li><span><strong>Soziale Schichten</strong> sind hart — Whitecrown und Brightstone für die Elite, Dunslough und Charhollow für die Vergessenen. Dazwischen versuchen alle anderen zu überleben.</span></li>
+    <li><span><strong>Kriminalität</strong> ist allgegenwärtig und strukturiert. Niemand operiert ohne Erlaubnis einer größeren Fraktion — oder zahlt dafür.</span></li>
+  </ul>
+</div>
+
+<!-- ══════════ CROW'S FOOT ══════════ -->
+<div class="section-div">Die Viertel</div>
+
+<div id="crowsfoot" class="district">
+  <div class="district-header">
+    <div class="district-name">Crow's Foot <span class="badge b-canon">Kanon</span></div>
+    <div class="district-tagline">Ein Kreuzweg — Elend, Laster, und ewiger Bandenkrieg</div>
+    <div class="district-meta">
+      <span class="meta-tag wealth-low">Wohlstand: Niedrig</span>
+      <span class="meta-tag wealth-med">Tier II · Strong</span>
+    </div>
+  </div>
+  <div class="district-body">
+    <div class="district-col">
+      <div class="col-title">Atmosphäre</div>
+      <p class="prose">Crow's Foot ist ein Kreuzweg — es verschmilzt die verbotenen Laster von Silkshore, den Hafen-Schmutz der Docks, die Armut von Charhollow und die verwitterte klassische Architektur von Charterhall. Mehrstöckige, enge Straßen. Nebel. Rivalen-Gangs, die sich über die Dächer hinweg Drohungen zurufen. Bluecoats, die Händler um Bestechung erpressen. Adelige in feinen Kutschen, auf der Suche nach verbotenen Gütern.</p>
+      <br>
+      <div class="col-title">Orte</div>
+      <div class="location"><strong>Crow's Nest.</strong> Ein uralter Turm — ehemals Ritualschanktum, dann Observatorium, dann Bluecoat-Posten. Heute HQ der Crows-Gang.</div>
+      <div class="location"><strong>Tangletown.</strong> Ein halbversunkenes Leviathan-Schiff im Fluss, das über Jahrzehnte eine schwimmende Siedlung aus kleinen Booten angesammelt hat.</div>
+      <div class="location"><strong>Strathmill House.</strong> Waisenhaus — versorgt Kinder offiziell mit Arbeitsvermittlung, bildet sie heimlich als Laufburschen und Ausguck für die Gangs aus.</div>
+      <div class="location"><strong>Red Sash Sword Academy.</strong> Ein umgebautes Herrenhaus als Schwertkampfschule — Deckmantel für das iruvische Drogen-Imperium der Red Sashes.</div>
+    </div>
+    <div class="district-col">
+      <div class="col-title">Fraktionen</div>
+      <div class="faction">
+        <div class="faction-name">The Crows <span class="tier">Tier II · Weak</span></div>
+        <div class="faction-desc">Alte Gang mit neuer Führung. Kontrollieren illegale Glücksspiele und Schutzgeld-Erpressung. Ihr Anführer <strong>Roric</strong> wurde ermordet — seine Ex-Vertraute <strong>Lyssa</strong> hat übernommen, aber ihre Autorität ist umstritten.</div>
+        <div class="faction-npc">Lyssa (Anführerin — gefährlich, berechnend, mögliche Bluecoat-Deals). Roric (tot — sein Geist könnte noch eine Rolle spielen).</div>
+      </div>
+      <div class="faction">
+        <div class="faction-name">The Lampblacks <span class="tier">Tier II · Weak</span></div>
+        <div class="faction-desc">Ehemals die Lampenzünder-Gilde — nach der Elektrifizierung in die Kriminalität abgedriftet. Führen Bordelle und billige Drogenhöhlen. Im Krieg mit den Crows.</div>
+        <div class="faction-npc">Bazso Baz (Anführer — charmant, offen, rücksichtslos, Whiskey-Kenner, heimlich Teil der "The Empty Vessel"-Geheimgesellschaft). Pickett (durchtrieben, misstrauisch). Henner (loyal, rücksichtslos).</div>
+      </div>
+      <div class="faction">
+        <div class="faction-name">The Red Sashes <span class="tier">Tier II · Weak</span></div>
+        <div class="faction-desc">Iruvische Gang. Ursprünglich eine Schwertkampfschule, expandiert in Drogenhandel (Lotus, Mohnblütentee, Soma, Daggerlily). Wenige, aber kampferprobt.</div>
+        <div class="faction-npc">Mylera Klev (Anführerin — iruvische Schwertkämpferin, ehrgeizig, stolz, gefährlich schlau, ein Auge für teure Kunst).</div>
+      </div>
+    </div>
+    <div class="district-col full">
+      <div class="col-title">Hooks &amp; Abenteuerideen <span class="badge b-gm">GM-Erweiterung</span></div>
+      <div class="hook"><strong>Roriks Geist.</strong> Roric wurde ermordet — aber niemand weiß von wem. Sein Geist wandert durch Crow's Nest. Wer ihn befragen kann, kennt vielleicht die Wahrheit — und hält damit Macht über Lyssa.</div>
+      <div class="hook"><strong>Strathmill-Kinder.</strong> Das Waisenhaus verkauft nicht nur Arbeitskraft — manche Kinder verschwinden spurlos. Wer kauft sie? Und wofür?</div>
+      <div class="hook"><strong>Der dritte Krieg.</strong> Lampblacks und Red Sashes kämpfen, die Crows sammeln sich — wer die Schwäche einer Seite ausnutzt, kann in Minuten Feinde aller drei machen.</div>
+    </div>
+  </div>
+</div>
+
+<!-- SILKSHORE -->
+<div id="silkshore" class="district">
+  <div class="district-header">
+    <div class="district-name">Silkshore <span class="badge b-canon">Kanon</span></div>
+    <div class="district-tagline">Das Rotlicht-Viertel — Laster, Kunst und Gondeln im Nebel</div>
+    <div class="district-meta">
+      <span class="meta-tag wealth-med">Wohlstand: Mittel</span>
+      <span class="meta-tag wealth-med">Tier II · Strong</span>
+    </div>
+  </div>
+  <div class="district-body">
+    <div class="district-col">
+      <div class="col-title">Atmosphäre</div>
+      <p class="prose">Silkshore ist das Vergnügungsviertel — Kabaretts, Drogenhöhlen, Bordelle, Kunstgalerien und Gondolieri auf den Kanälen. Jede Nacht kommen Adelige aus Brightstone, Studenten aus Charterhall und Gangs aus Crow's Foot hierher. Das Viertel ist bunt, gefährlich und sexuell explizit — und das alles gleichzeitig.</p>
+      <br>
+      <div class="col-title">Orte <span class="badge b-gm">GM-Erweiterung</span></div>
+      <div class="location"><strong>Cabaret Circumstance.</strong> Das bekannteste Kabarett — Electroplasma-Lichter, dekadente Shows, Hinterzimmer-Deals.</div>
+      <div class="location"><strong>Mother Lode.</strong> Upscale-Opiumhöhle — diskret, teuer, der Liebling der Oberschicht.</div>
+      <div class="location"><strong>Die Gondolieri-Anlegestellen.</strong> Offiziell neutrale Zone — die Gondolieri-Fraktion kontrolliert jeden Kanal und sieht alles.</div>
+    </div>
+    <div class="district-col">
+      <div class="col-title">Fraktionen</div>
+      <div class="faction">
+        <div class="faction-name">The Gondolieri <span class="tier">Tier III · Strong</span></div>
+        <div class="faction-desc">Kontrollieren alle Kanal-Transporte. Offiziell neutral — in der Praxis wissen sie alles, was in Silkshore (und der halben Stadt) passiert. Sehr mächtig für ihre unscheinbare Rolle.</div>
+        <div class="faction-npc">Keine kanonischen NPCs namentlich bestätigt.</div>
+      </div>
+      <div class="faction">
+        <div class="faction-name">The Dimmer Sisters <span class="tier">Tier II · Strong</span></div>
+        <div class="faction-desc">Mysteriöse Gruppe okkulter Frauen. Handeln mit Geistern, Artefakten und Wissen. Gefürchtet auch von anderen Unterwelt-Fraktionen.</div>
+        <div class="faction-npc">Keine kanonischen NPCs bestätigt — absichtlich geheimnisvoll.</div>
+      </div>
+      <div class="faction">
+        <div class="faction-name">The Cyphers <span class="tier">Tier II · Strong</span></div>
+        <div class="faction-desc">Informationshändler. Kaufen und verkaufen Geheimnisse — von Klatsch bis zu Staatsgeheimnissen.</div>
+        <div class="faction-npc">Keine kanonischen NPCs bestätigt.</div>
+      </div>
+    </div>
+    <div class="district-col full">
+      <div class="col-title">Hooks &amp; Abenteuerideen <span class="badge b-gm">GM-Erweiterung</span></div>
+      <div class="hook"><strong>Die Gondolieri sehen alles.</strong> Jemand hat eine Leiche im Kanal entsorgt — die Gondolieri haben es gesehen, aber sprechen nicht. Was ist ihr Preis?</div>
+      <div class="hook"><strong>Dimmer Sisters-Auftrag.</strong> Die Schwestern wollen ein bestimmtes Artefakt aus einem Herrenhaus in Brightstone — und sie bezahlen gut. Was ist das Ding, und warum wollen sie es?</div>
+      <div class="hook"><strong>Kabarett-Erpressung.</strong> Ein Adeliger aus Brightstone wird beim Cabaret Circumstance mit etwas Kompromittierendem gesichtet. Wer hält das Foto, und wer will es kaufen?</div>
+    </div>
+  </div>
+</div>
+
+<!-- CHARTERHALL -->
+<div id="charterhall" class="district">
+  <div class="district-header">
+    <div class="district-name">Charterhall <span class="badge b-canon">Kanon</span></div>
+    <div class="district-tagline">Recht, Geld und Bürokratie — das Herz der imperialen Macht</div>
+    <div class="district-meta">
+      <span class="meta-tag wealth-high">Wohlstand: Hoch</span>
+      <span class="meta-tag wealth-high">Tier IV · Strong</span>
+    </div>
+  </div>
+  <div class="district-body">
+    <div class="district-col">
+      <div class="col-title">Atmosphäre</div>
+      <p class="prose">Charterhall war die erste große Siedlung der Stadt — der alte Wall der ersten Blitzsperre steht noch in Teilen als Ruine. Heute: Gerichte, Lizenz- und Steuerbehörden, Banken, Archive. Beamte, Universitätsstudenten und Industrie-Magnaten wohnen hier. Sauber, gepflegt, kalt.</p>
+      <br>
+      <div class="col-title">Orte</div>
+      <div class="location"><strong>Charterhall University.</strong> Dutzende umgebauter Gebäude — Klassenzimmer und Wohnheime. Lehrt alles von Recht bis zu okkulter Wissenschaft. <span class="badge b-canon">Kanon</span></div>
+      <div class="location"><strong>Archive of Echoes.</strong> Bibliothek mit der größten Sammlung okkulter Schriften und Unterlagen über Geister und vergessene Götter. <span class="badge b-canon">Kanon</span></div>
+      <div class="location"><strong>Bellweather Crematorium.</strong> Standort der Geisterglocken. Spirit Wardens verbrennen Leichen hier, um ihre Geister zu vernichten. Deathseeker-Krähen brüten hier. <span class="badge b-canon">Kanon</span></div>
+    </div>
+    <div class="district-col">
+      <div class="col-title">Fraktionen</div>
+      <div class="faction">
+        <div class="faction-name">Spirit Wardens <span class="tier">Tier IV · Strong</span></div>
+        <div class="faction-desc">Maskierte Behörde — vernichten gefährliche Geister, verhören Geister von Verstorbenen im Auftrag des Staates. Besitzen Deathseeker-Krähen als Informanten.</div>
+        <div class="faction-npc">Blossom und Sleet (lizenzierte Whispers, Verhörspezialisten — rücksichtslos, weltfremd, verdreht).</div>
+      </div>
+      <div class="faction">
+        <div class="faction-name">The Inspectors <span class="tier">Tier III · Strong</span></div>
+        <div class="faction-desc">Elite-Ermittler — nicht so korrupt wie die Bluecoats. Zuständig für schwere Verbrechen. Gefährlicher als normale Bluecoats, weil sie tatsächlich ermitteln.</div>
+        <div class="faction-npc">Keine kanonischen NPCs bestätigt.</div>
+      </div>
+      <div class="faction">
+        <div class="faction-name">The Path of Echoes <span class="tier">Tier III · Strong</span></div>
+        <div class="faction-desc">Geheime Sekte — kommuniziert mit Geistern, glaubt an ein Leben nach dem Tod jenseits des Verfalls. Stark in Charterhall verankert. HQ: The Discourse Arena.</div>
+        <div class="faction-npc">Una Farros (Dozentin an der University — neugierig, eitel, berühmt).</div>
+      </div>
+    </div>
+    <div class="district-col full">
+      <div class="col-title">Hooks &amp; Abenteuerideen <span class="badge b-gm">GM-Erweiterung</span></div>
+      <div class="hook"><strong>Archiv-Einbruch.</strong> Im Archive of Echoes liegt ein Dokument, das eine mächtige Familie kompromittiert — oder eine Karte zu einem vergessenen Ort. Die Spirit Wardens bewachen es. Kein gewöhnlicher Score.</div>
+      <div class="hook"><strong>Inspector auf den Fersen.</strong> Eine bestimmte Inspectorin hat die Crew im Visier. Sie ist nicht korrupt. Was tun?</div>
+      <div class="hook"><strong>Universitäts-Kontakt.</strong> Una Farros weiß etwas über einen Geist, den die Crew braucht — aber sie will einen Gefallen, der sie tief in verbotenes Terrain führt.</div>
+    </div>
+  </div>
+</div>
+
+<!-- BRIGHTSTONE -->
+<div id="brightstone" class="district">
+  <div class="district-header">
+    <div class="district-name">Brightstone <span class="badge b-canon">Kanon</span></div>
+    <div class="district-tagline">Villen, Luxus und die kalte Eleganz des alten Geldes</div>
+    <div class="district-meta">
+      <span class="meta-tag wealth-high">Wohlstand: Sehr Hoch</span>
+      <span class="meta-tag wealth-high">Tier IV · Strong</span>
+    </div>
+  </div>
+  <div class="district-body">
+    <div class="district-col">
+      <div class="col-title">Atmosphäre</div>
+      <p class="prose">Die großen Herrenhäuser und Luxusgeschäfte der wohlhabenden Elite. Brightstone ist gepflegt, hell beleuchtet, und bewacht. Hinter den glänzenden Fassaden tobt der Krieg um Einfluss, Erbschaften und gesellschaftliche Stellung — aber leise und mit Lächeln.</p>
+      <br>
+      <div class="col-title">Orte</div>
+      <div class="location"><strong>Bowmore Bridge.</strong> Die größte Brücke im Imperium — Luxusapartments und Geschäfte an beiden Seiten, verbindet Brightstone mit Whitecrown. <span class="badge b-canon">Kanon</span></div>
+      <div class="location"><strong>The Silver Market.</strong> Offener Markt für Luxusgüter — Seide, Gewürze, alchemistische Destillate. <span class="badge b-canon">Kanon</span></div>
+      <div class="location"><strong>The Silver Swan.</strong> Ein Vergnügungsschiff auf den Brightstone-Kanälen. Masken sind Pflicht — Anonymität als sozialer Spielplatz. <span class="badge b-canon">Kanon</span></div>
+      <div class="location"><strong>Scurlock Manor.</strong> Das verfallende Herrenhaus der Scurlock-Familie — einst mächtig, jetzt von einem alten Fluch heimgesucht. Lord Scurlock soll unsterblich sein. <span class="badge b-canon">Kanon</span></div>
+    </div>
+    <div class="district-col">
+      <div class="col-title">Fraktionen</div>
+      <div class="faction">
+        <div class="faction-name">Lord Scurlock <span class="tier">Tier III · Strong</span></div>
+        <div class="faction-desc">Alter Adel mit dunklen Geheimnissen. Soll unsterblich sein — möglicherweise ein Vampir oder ein Geist im Leichnam. Besessen von okkulten Artefakten. Isoliert, aber gefürchtet.</div>
+        <div class="faction-npc">Lord Scurlock (uralt, beobachtend, unberechenbar, sammelt Wissen über Geister).</div>
+      </div>
+      <div class="faction">
+        <div class="faction-name">The Unseen <span class="tier">Tier IV · Strong</span></div>
+        <div class="faction-desc">Die mächtigste Unterwelt-Fraktion der Stadt. Operiert aus dem Verborgenen — niemand weiß genau wer Mitglied ist. Tentakel in Adel, Regierung und Unterwelt gleichzeitig.</div>
+        <div class="faction-npc">Keine kanonischen NPCs — das ist der Punkt.</div>
+      </div>
+      <div class="faction">
+        <div class="faction-name">The Circle of Flame <span class="tier">Tier III · Strong</span></div>
+        <div class="faction-desc">Geheimgesellschaft aus Adel und Industriellen. Okkulte Rituale, politische Manipulation, Kontakte zu Dämonen. Treffen in privaten Clubs und Villenkellern.</div>
+        <div class="faction-npc">Keine kanonischen NPCs bestätigt.</div>
+      </div>
+    </div>
+    <div class="district-col full">
+      <div class="col-title">Hooks &amp; Abenteuerideen <span class="badge b-gm">GM-Erweiterung</span></div>
+      <div class="hook"><strong>Silver Swan-Heist.</strong> Auf dem Schiff trägt jeder eine Maske. Ein bestimmtes Objekt wechselt dort den Besitzer — aber wer gibt es, wer bekommt es, und warum?</div>
+      <div class="hook"><strong>Scurlock-Auftrag.</strong> Lord Scurlock will ein Artefakt zurück, das jemand gestohlen hat. Er bezahlt großzügig — aber was will er damit wirklich?</div>
+      <div class="hook"><strong>Unseen-Kontakt.</strong> Jemand behauptet, Mitglied der Unseen zu sein und bietet Schutz an — zu einem Preis. Ist es wahr, oder ein Betrug?</div>
+    </div>
+  </div>
+</div>
+
+<!-- THE DOCKS -->
+<div id="docks" class="district">
+  <div class="district-header">
+    <div class="district-name">The Docks <span class="badge b-canon">Kanon</span></div>
+    <div class="district-tagline">Raue Tavernen, Tätowier-Studios, Kampfgruben und Lagerhäuser</div>
+    <div class="district-meta">
+      <span class="meta-tag wealth-low">Wohlstand: Niedrig–Mittel</span>
+      <span class="meta-tag wealth-med">Tier II · Strong</span>
+    </div>
+  </div>
+  <div class="district-body">
+    <div class="district-col">
+      <div class="col-title">Atmosphäre</div>
+      <p class="prose">Schmutz, Salzwasser, Maschinenöl. Die Docks sind das Herz des Warenverkehrs — Leviathan-Jäger laufen hier ein, Handelsschiffe laden ab. Tagsüber Arbeit, nachts Vergnügen der rohen Art. Dockers, Matrosen, Tattowiermeister, Schmuggler.</p>
+      <br>
+      <div class="col-title">Orte <span class="badge b-gm">GM-Erweiterung</span></div>
+      <div class="location"><strong>Leviathan-Anlegestellen.</strong> Wo die Jagdschiffe einlaufen. Riesige Winden und Verarbeitungsanlagen. Der Geruch von Electroplasma-Blut hängt in der Luft.</div>
+      <div class="location"><strong>The Broken Anchor.</strong> Die bekannteste Taverne — neutrale Zone für alle Fraktionen, solange es drinnen ruhig bleibt. Der Wirt kennt jeden.</div>
+    </div>
+    <div class="district-col">
+      <div class="col-title">Fraktionen</div>
+      <div class="faction">
+        <div class="faction-name">Leviathan Hunters <span class="tier">Tier V · Strong</span></div>
+        <div class="faction-desc">Die Crews, die auf dem Void Sea Leviathane jagen und ihr Blut für Electroplasma ernten. Extrem mächtig, steinreich und weltfremd. Gesetze gelten für sie nur bedingt.</div>
+        <div class="faction-npc">Keine kanonischen NPCs bestätigt.</div>
+      </div>
+      <div class="faction">
+        <div class="faction-name">Dockers <span class="tier">Tier III · Strong</span></div>
+        <div class="faction-desc">Organisierte Hafenarbeiter. Kontrollieren den Warenfluss — was läuft und was nicht läuft. Streikdrohungen sind ihre stärkste Waffe.</div>
+      </div>
+      <div class="faction">
+        <div class="faction-name">Sailors <span class="tier">Tier III · Weak</span></div>
+        <div class="faction-desc">Lose Gemeinschaft von Seeleuten — weniger organisiert als Dockers, aber zahlreich und mit Verbindungen in andere Städte.</div>
+      </div>
+    </div>
+    <div class="district-col full">
+      <div class="col-title">Hooks <span class="badge b-gm">GM-Erweiterung</span></div>
+      <div class="hook"><strong>Schmuggler-Route.</strong> Ein Leviathan-Schiff bringt etwas Illegales herein — aber wer bekommt es, und wer will es abfangen?</div>
+      <div class="hook"><strong>Docker-Streik.</strong> Die Dockers drohen mit Streik. Jemand will das ausnutzen — oder verhindern. Beide Seiten zahlen.</div>
+    </div>
+  </div>
+</div>
+
+<!-- NIGHTMARKET -->
+<div id="nightmarket" class="district">
+  <div class="district-header">
+    <div class="district-name">Nightmarket <span class="badge b-canon">Kanon</span></div>
+    <div class="district-tagline">Exotische Waren aus dem ganzen Imperium — und darunter</div>
+    <div class="district-meta">
+      <span class="meta-tag wealth-med">Wohlstand: Mittel</span>
+      <span class="meta-tag wealth-med">Tier II · Strong</span>
+    </div>
+  </div>
+  <div class="district-body">
+    <div class="district-col">
+      <div class="col-title">Atmosphäre</div>
+      <p class="prose">Nightmarket ist das Handelszentrum für exotische Güter, die per Elektrozug aus dem ganzen Imperium ankommen. Viele Händler verkaufen auch unter der Hand — verbotene Substanzen, seltene Artefakte, gestohlene Waren. Laut, bunt, rund um die Uhr geöffnet.</p>
+      <br>
+      <div class="col-title">Orte <span class="badge b-gm">GM-Erweiterung</span></div>
+      <div class="location"><strong>Gaddoc Rail Station.</strong> Der Elektrozug-Bahnhof — Verbindung zu anderen Städten des Imperiums. Alles und jeder kommt und geht hier. Riesig, chaotisch. <span class="badge b-canon">Kanon</span></div>
+    </div>
+    <div class="district-col">
+      <div class="col-title">Fraktionen</div>
+      <div class="faction">
+        <div class="faction-name">The Hive <span class="tier">Tier IV · Strong</span></div>
+        <div class="faction-desc">Mächtiges Unterwelt-Syndikat. Spezialisiert auf Drogen, Hehlerei und organisiertes Verbrechen im großen Stil. Eng mit Nightmarket verwoben.</div>
+      </div>
+      <div class="faction">
+        <div class="faction-name">Rail Jacks <span class="tier">Tier II · Weak</span></div>
+        <div class="faction-desc">Bahnarbeiter — kontrollieren, was in den Zügen transportiert wird. Wichtige Schmuggler-Verbindungen.</div>
+      </div>
+    </div>
+    <div class="district-col full">
+      <div class="col-title">Hooks <span class="badge b-gm">GM-Erweiterung</span></div>
+      <div class="hook"><strong>Paket im Zug.</strong> Etwas Wichtiges kommt per Zug an — aber mehrere Fraktionen wissen es. Wer schnappt es sich?</div>
+      <div class="hook"><strong>Markthändler-Netzwerk.</strong> Ein Händler ist Informant für die Inspectors — oder behauptet es, um Schutzgeld zu vermeiden. Was stimmt?</div>
+    </div>
+  </div>
+</div>
+
+<!-- SIX TOWERS -->
+<div id="sixtowers" class="district">
+  <div class="district-header">
+    <div class="district-name">Six Towers <span class="badge b-canon">Kanon</span></div>
+    <div class="district-tagline">Einst reich, jetzt verfallen — ein Viertel auf dem Weg nach unten</div>
+    <div class="district-meta">
+      <span class="meta-tag wealth-low">Wohlstand: Niedrig–Mittel</span>
+      <span class="meta-tag wealth-med">Tier III · Weak</span>
+    </div>
+  </div>
+  <div class="district-body">
+    <div class="district-col">
+      <div class="col-title">Atmosphäre</div>
+      <p class="prose">Six Towers war einmal ein wohlhabendes Viertel — die titelgebenden Türme stehen noch, verwittert und halb leer. Heute: heruntergekommene Mietshäuser, verblichener Glanz, ein Mittelstand am Rande des Absturzes. Weder arm genug für Charhollow, noch reich genug für Charterhall.</p>
+      <br>
+      <div class="col-title">Orte <span class="badge b-canon">Kanon</span></div>
+      <div class="location"><strong>Arms of the Weeping Lady.</strong> Ehemaliges Opernhaus — heute Suppenküche und Obdachlosenunterkunft, betrieben von der Weeping Lady Fraktion.</div>
+      <div class="location"><strong>Mistshore Park.</strong> Dunkler, überwucherter Park am Flussufer. Laut alten Balladen ein Ort für Liebestode — jetzt definitiv heimgesucht.</div>
+    </div>
+    <div class="district-col">
+      <div class="col-title">Fraktionen</div>
+      <div class="faction">
+        <div class="faction-name">The Silver Nails <span class="tier">Tier III · Strong</span></div>
+        <div class="faction-desc">Skovlanische Söldner-Gang — Veteranen des Skovlan-Krieges. Loyal zueinander, misstrauisch gegenüber Doskvol-Einheimischen. Nehmen jeden Auftrag an.</div>
+      </div>
+      <div class="faction">
+        <div class="faction-name">The Weeping Lady <span class="tier">Tier II · Strong</span></div>
+        <div class="faction-desc">Wohltätigkeits-Fraktion — versorgt die Ärmsten, aber mit einer geheimen Agenda. Schützerin der Vergessenen — und mögliche Front für etwas Dunkleres.</div>
+      </div>
+    </div>
+    <div class="district-col full">
+      <div class="col-title">Hooks <span class="badge b-gm">GM-Erweiterung</span></div>
+      <div class="hook"><strong>Weeping Lady-Geheimnis.</strong> Die Suppenküche ist Deckmantel — wofür? Wer versteckt sich dort, und warum?</div>
+      <div class="hook"><strong>Silver Nails-Auftrag.</strong> Die Söldner sind für einen Job angeheuert — der direkt mit der Crew kollidiert. Verhandeln oder konfrontieren?</div>
+    </div>
+  </div>
+</div>
+
+<!-- CHARHOLLOW -->
+<div id="charhollow" class="district">
+  <div class="district-header">
+    <div class="district-name">Charhollow <span class="badge b-canon">Kanon</span></div>
+    <div class="district-tagline">Mietskaserne auf Mietskaserne — die arbeitende Armutsklasse</div>
+    <div class="district-meta">
+      <span class="meta-tag wealth-squalid">Wohlstand: Sehr Niedrig</span>
+      <span class="meta-tag wealth-low">Tier I · Strong</span>
+    </div>
+  </div>
+  <div class="district-body">
+    <div class="district-col">
+      <div class="col-title">Atmosphäre</div>
+      <p class="prose">Charhollow ist das Viertel der Arbeiterschicht — vollgestopft mit Mietskasernen, Reihenhaus-Labyrinthen. Laut, heiß von Kochfeuern und Dampfrohren, billig, aber mit echtem Gemeinschaftssinn. Hier lebt der Großteil der Stadtbevölkerung — Dockers, Matrosen, Viehhofarbeiter, Aal-Züchter, Droschkenfahrer.</p>
+    </div>
+    <div class="district-col">
+      <div class="col-title">Fraktionen</div>
+      <div class="faction">
+        <div class="faction-name">The Billhooks <span class="tier">Tier II · Weak</span></div>
+        <div class="faction-desc">Brutale Gang — bevorzugen Beile, Fleischhaken und Stangenwaffen. Nicht subtil. Sehr gefährlich in Nahkampf-Situationen.</div>
+      </div>
+      <div class="faction">
+        <div class="faction-name">Skovlander Refugees <span class="tier">Tier III · Weak</span></div>
+        <div class="faction-desc">Kriegsflüchtlinge aus Skovlan. Marginalisiert und diskriminiert. Starke innere Solidarität — aber von Doskvols Etablishment verachtet.</div>
+      </div>
+    </div>
+    <div class="district-col full">
+      <div class="col-title">Hooks <span class="badge b-gm">GM-Erweiterung</span></div>
+      <div class="hook"><strong>Billhooks-Terror.</strong> Die Billhooks fordern von einem Viertel Schutzgeld — die Bewohner können nicht zahlen und wollen sich wehren. Wer hilft, macht sich Freunde in Charhollow — und Feinde bei den Billhooks.</div>
+    </div>
+  </div>
+</div>
+
+<!-- COALRIDGE -->
+<div id="coalridge" class="district">
+  <div class="district-header">
+    <div class="district-name">Coalridge <span class="badge b-canon">Kanon</span></div>
+    <div class="district-tagline">Die ursprüngliche Bergbausiedlung — jetzt Industriehölle</div>
+    <div class="district-meta">
+      <span class="meta-tag wealth-low">Wohlstand: Niedrig</span>
+      <span class="meta-tag wealth-low">Tier II · Weak</span>
+    </div>
+  </div>
+  <div class="district-body">
+    <div class="district-col">
+      <div class="col-title">Atmosphäre</div>
+      <p class="prose">Die ursprüngliche Bergbausiedlung Doskvols auf einem Hügel — heute dominiert von Industriefabriken, Ruß und Maschinenlärm. Arbeiter leben hier, schlafen erschöpft, arbeiten wieder. Die Sparkwrights haben hier ihre wichtigsten Werkstätten.</p>
+    </div>
+    <div class="district-col">
+      <div class="col-title">Fraktionen</div>
+      <div class="faction">
+        <div class="faction-name">Sparkwrights <span class="tier">Tier IV · Strong</span></div>
+        <div class="faction-desc">Ingenieure der Blitzsperren und Electroplasma-Technologie. Monopol auf Wartung und Neubau. Betreiben gefährliche Forschung. Exklusivrecht auf Bau und Wartung der städtischen Infrastruktur.</div>
+      </div>
+      <div class="faction">
+        <div class="faction-name">Laborers <span class="tier">Tier III · Weak</span></div>
+        <div class="faction-desc">Fabrikarbeiter — schlecht organisiert, leicht ausgebeutet. Ein Funke könnte zum Aufstand führen.</div>
+      </div>
+    </div>
+    <div class="district-col full">
+      <div class="col-title">Hooks <span class="badge b-gm">GM-Erweiterung</span></div>
+      <div class="hook"><strong>Sparkwright-Sabotage.</strong> Jemand hat eine Anlage sabotiert — die Sparkwrights verdächtigen die Laborers. Aber wer hat wirklich ein Motiv?</div>
+    </div>
+  </div>
+</div>
+
+<!-- BARROWCLEFT -->
+<div id="barrowcleft" class="district">
+  <div class="district-header">
+    <div class="district-name">Barrowcleft <span class="badge b-canon">Kanon</span></div>
+    <div class="district-tagline">Wohnviertel und Märkte für die Mittelklasse</div>
+    <div class="district-meta">
+      <span class="meta-tag wealth-med">Wohlstand: Mittel</span>
+      <span class="meta-tag wealth-med">Tier II · Strong</span>
+    </div>
+  </div>
+  <div class="district-body">
+    <div class="district-col">
+      <div class="col-title">Atmosphäre</div>
+      <p class="prose">Barrowcleft ist das solideste Wohnviertel — hier leben Handwerker, Händler, niedere Beamte und aufstrebende Familien. Märkte, Schulen, Kirchen der Flesh-Ecstasy. Vergleichsweise ruhig — aber auch hier laufen Unterwelt-Geschäfte, nur diskreter.</p>
+    </div>
+    <div class="district-col">
+      <div class="col-title">Fraktionen</div>
+      <div class="faction">
+        <div class="faction-name">The Grinders <span class="tier">Tier II · Weak</span></div>
+        <div class="faction-desc">Gang, die Schutzgeld-Erpressung im Barrowcleft-Bereich betreibt. Nicht besonders raffiniert, aber beständig.</div>
+      </div>
+      <div class="faction">
+        <div class="faction-name">Cabbies <span class="tier">Tier II · Weak</span></div>
+        <div class="faction-desc">Droschkenfahrer — sehen alles, wissen alles, reden mit jedem. Wichtige Informationsquelle für alle Fraktionen.</div>
+      </div>
+    </div>
+    <div class="district-col full">
+      <div class="col-title">Hooks <span class="badge b-gm">GM-Erweiterung</span></div>
+      <div class="hook"><strong>Cabbie-Netzwerk.</strong> Ein Droschkenfahrer hat etwas gesehen, das ihn umbringen wird — und sucht Schutz. Was weiß er, und wer will ihn zum Schweigen bringen?</div>
+    </div>
+  </div>
+</div>
+
+<!-- DUNSLOUGH -->
+<div id="dunslough" class="district">
+  <div class="district-header">
+    <div class="district-name">Dunslough <span class="badge b-canon">Kanon</span></div>
+    <div class="district-tagline">Arbeitslager, Verurteilte und das Elend der Vergessenen</div>
+    <div class="district-meta">
+      <span class="meta-tag wealth-squalid">Wohlstand: Elend</span>
+      <span class="meta-tag wealth-squalid">Tier I · Weak</span>
+    </div>
+  </div>
+  <div class="district-body">
+    <div class="district-col">
+      <div class="col-title">Atmosphäre</div>
+      <p class="prose">Dunslough ist das Ghetto der Hoffnungslosen. Verurteilte arbeiten hier in Lagern. Die Ärmsten der Stadt vegetieren in Slums. Wer hierhin kommt, hat selten eine Wahl. Ironhook Prison liegt in der Nähe — und wer entlassen wird, landet oft in Dunslough, weil er nirgendwo sonst hin kann.</p>
+    </div>
+    <div class="district-col">
+      <div class="col-title">Fraktionen</div>
+      <div class="faction">
+        <div class="faction-name">The Lost <span class="tier">Tier I · Weak</span></div>
+        <div class="faction-desc">Ex-Soldaten und Straßenkämpfer, die die Schwächsten schützen. Arm, aber mit Ehre. Respektiert von den Bewohnern Dunsloughs.</div>
+      </div>
+      <div class="faction">
+        <div class="faction-name">Ulf Ironborn <span class="tier">Tier I · Strong</span></div>
+        <div class="faction-desc">Brutaler skovlanischer Neuankömmling — kämpft sich durch alle Fraktionen, um sich Territorium zu erkämpfen. Unberechenbar, roh, gefährlich aufsteigend.</div>
+      </div>
+    </div>
+    <div class="district-col full">
+      <div class="col-title">Hooks <span class="badge b-gm">GM-Erweiterung</span></div>
+      <div class="hook"><strong>Ulf Ironborn expandiert.</strong> Ulf will Turf in einem Nachbarviertel. Das macht ihn zur Bedrohung für jeden, der dort operiert — und zur Ressource für dessen Feinde.</div>
+    </div>
+  </div>
+</div>
+
+<!-- WHITECROWN -->
+<div id="whitecrown" class="district">
+  <div class="district-header">
+    <div class="district-name">Whitecrown <span class="badge b-canon">Kanon</span></div>
+    <div class="district-tagline">Die Krone der Stadt — Macht, Adel und Doskvol Academy</div>
+    <div class="district-meta">
+      <span class="meta-tag wealth-high">Wohlstand: Extrem Hoch</span>
+      <span class="meta-tag wealth-high">Tier V · Strong</span>
+    </div>
+  </div>
+  <div class="district-body">
+    <div class="district-col">
+      <div class="col-title">Atmosphäre</div>
+      <p class="prose">Whitecrown sitzt auf einem Gipfel jenseits des North Hook Channel — verbunden durch die Bowmore Bridge. Der Lord Governor residiert hier, flankiert von den mächtigsten Adelsfamilien und der Doskvol Academy. Die meisten Bürger betreten Whitecrown nie in ihrem Leben.</p>
+      <br>
+      <div class="col-title">Orte <span class="badge b-canon">Kanon</span></div>
+      <div class="location"><strong>Lord Governor's Stronghold.</strong> Die Residenz des Gouverneurs — befestigt, bewacht, unangreifbar für normale Kriminelle.</div>
+      <div class="location"><strong>Doskvol Academy.</strong> Ausbildungsstätte für Leviathan-Jäger-Kapitäne und Offiziere. Trainingsausfahrten das ganze Jahr.</div>
+      <div class="location"><strong>The Dusk Manor Club.</strong> Exklusivstes Social Club der Stadt — nur Einladung. Hier werden die wirklichen Entscheidungen getroffen.</div>
+    </div>
+    <div class="district-col">
+      <div class="col-title">Fraktionen</div>
+      <div class="faction">
+        <div class="faction-name">Imperial Military <span class="tier">Tier VI · Strong</span></div>
+        <div class="faction-desc">Die mächtigste Institution der Stadt. Kein Score geht gegen sie ohne katastrophale Konsequenzen. Präsenz im ganzen Imperium.</div>
+      </div>
+      <div class="faction">
+        <div class="faction-name">City Council <span class="tier">Tier V · Strong</span></div>
+        <div class="faction-desc">Die lokale Regierung — formal mächtig, real von Adel und Industrie abhängig. Setzt Gesetze durch, die für die Oberschicht gemacht wurden.</div>
+      </div>
+    </div>
+    <div class="district-col full">
+      <div class="col-title">Hooks <span class="badge b-gm">GM-Erweiterung</span></div>
+      <div class="hook"><strong>Dusk Manor-Einbruch.</strong> Ein Mitglied des Clubs hat etwas — ein Dokument, ein Artefakt, einen Menschen — das die Crew will. Kein normaler Score. Erfordert eine Deckidentität oder einen sozialen Zugang.</div>
+    </div>
+  </div>
+</div>
+
+<!-- AUSSERHALB -->
+<div class="section-div">Außerhalb der Stadtmauern</div>
+
+<div id="ausserhalb" class="world-card">
+  <div class="world-title">The Lost District <span class="badge b-canon">Kanon</span></div>
+  <p class="prose">Ein einst wohlhabendes Viertel — durch Plague verwüstet und dann aufgegeben, als die zweite Blitzsperre gebaut wurde. Jetzt liegt es außerhalb der Barrieren. Voller vergessener Schätze für die Leichtsinnigen. Komplett geisterverseucht. Einige Fraktionen haben hier geheime Stützpunkte.</p>
+</div>
+
+<div class="world-card">
+  <div class="world-title">The Deathlands &amp; Old North Port <span class="badge b-canon">Kanon</span></div>
+  <p class="prose">Jenseits der Blitzsperre: eine Ödnis aus versteinerten Bäumen, Asche und erstickenden schwarzen Miasma-Wolken. Legionen ruhelos wandernder Geister suchen jeden Funken Lebensenergie. Die Deathland Scavengers (Tier II · Weak) durchsuchen diese Zone nach Überresten. Old North Port ist ein verlassener Hafen — einst Doskvols ursprünglicher Anlegesteg, heute aufgegeben und verfallen.</p>
+</div>
+
+<div class="world-card">
+  <div class="world-title">Ironhook Prison <span class="badge b-canon">Kanon</span></div>
+  <p class="prose">Ein aufragendes Metallgefängnis — für die Schlimmsten (oder Unglücklichsten). Verurteilte werden zur Zwangsarbeit in den südlichen Feldern und Bergwerken eingeteilt. Tier IV · Strong. Die Lampblacks haben gute Kontakte hierher — Rekrutierung von entlassenen Gefangenen.</p>
+</div>
+
+<!-- EUER DOSKVOL -->
+<div class="section-div">Black Tides Crew — Eure Anpassungen</div>
+
+<div class="world-card" style="border-color: rgba(192,57,43,0.3);">
+  <div class="world-title" style="color: #e07070; border-color: rgba(192,57,43,0.2);">Kampagnen-Notizen (hier eintragen)</div>
+  <p class="prose" style="color: var(--smoke); font-style: italic;">Trage hier ein: Welche Viertel operiert die Black Tides Crew? Welche Fraktionen habt ihr modifiziert? Welche NPCs haben ihr eigenes Gesicht bekommen? Welche Clocks laufen gerade?</p>
+  <br>
+  <p class="prose" style="color: var(--smoke); font-style: italic;">Placeholder für eure Kampagnen-spezifischen Details.</p>
+</div>
+
+<footer>Blades in the Dark von John Harper · Doskvol-Guide für den persönlichen Tischgebrauch · Black Tides Crew Edition</footer>
+
+</div>
+  </div>
+</div>
+
+<script>
+function switchTab(name, btn) {
+  // hide all panels
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  // show selected
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+  // scroll to top
+  window.scrollTo({ top: 0, behavior: 'instant' });
+}
+</script>
+
+</body>
+</html>
